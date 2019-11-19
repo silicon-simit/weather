@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BOC | Weather Details List</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div style="text-align: center;
+		border: 5px;">
+        <form
+                action="weatherDetail"
+                data-th-action="@{/weather/list/search}"
+                data-th-object="${searchBean}"
+                method="post"
+                class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-4"> Start Date </label>
+                <div class="col-sm-3">
+                    <input
+                            class="form-control"
+                            type="date"
+                            th:field="${searchBean.startDate}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4"> End Date </label>
+                <div class="col-sm-3">
+                    <input
+                            class="form-control"
+                            type="date"
+                            th:field="${searchBean.endDate}"/>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div>
+                <div>
+                    <button name="action"
+                            value="search"
+                            type="submit"
+                            class="btn btn-success"
+                            th:text="${'Search'}"></button>
+                </div>
+            </div>
+        </form>
+        <div class="table-responsive" style="height: 60%; width: 90%; overflow: auto;">
+            <div>
+                <div>
+                    <a
+                            th:href="@{/weather}"
+                            class="btn btn-primary"
+                            th:text="${'Admin'}"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <table id="weatherDetailsTable" class="js-dynamitable table table-condensed table-hover" border="1">
+                <thead class="bg-primary">
+                <tr>
+                    <th>ID
+                        <span class="js-sorter-desc glyphicon glyphicon-chevron-down pull-right"></span>
+                        <span class="js-sorter-asc glyphicon glyphicon-chevron-up pull-right"></span>
+                    </th>
+                    <th>Date
+                        <span class="js-sorter-desc glyphicon glyphicon-chevron-down pull-right"></span>
+                        <span class="js-sorter-asc glyphicon glyphicon-chevron-up pull-right"></span>
+                    </th>
+                    <th>Station Name
+                        <span class="js-sorter-desc glyphicon glyphicon-chevron-down pull-right"></span>
+                        <span class="js-sorter-asc glyphicon glyphicon-chevron-up pull-right"></span>
+                    </th>
+                    <th>Province
+                        <span class="js-sorter-desc glyphicon glyphicon-chevron-down pull-right"></span>
+                        <span class="js-sorter-asc glyphicon glyphicon-chevron-up pull-right"></span>
+                    </th>
+                    <th>Mean Temp
+                        <span class="js-sorter-desc glyphicon glyphicon-chevron-down pull-right"></span>
+                        <span class="js-sorter-asc glyphicon glyphicon-chevron-up pull-right"></span>
+                    </th>
+                    <th>Highest Monthly Temp
+                        <span class="js-sorter-desc glyphicon glyphicon-chevron-down pull-right"></span>
+                        <span class="js-sorter-asc glyphicon glyphicon-chevron-up pull-right"></span>
+                    </th>
+                    <th>Lowest Monthly Temp
+                        <span class="js-sorter-desc glyphicon glyphicon-chevron-down pull-right"></span>
+                        <span class="js-sorter-asc glyphicon glyphicon-chevron-up pull-right"></span>
+                    </th>
+                </tr>
+                <tr>
+                    <th><input class="js-filter form-control" type="text" value="" /></th>
+                    <th><input class="js-filter form-control" type="text" value="" /></th>
+                    <th><input class="js-filter form-control" type="text" value="" /></th>
+                    <th><input class="js-filter form-control" type="text" value="" /></th>
+                    <th><input class="js-filter form-control" type="text" value="" /></th>
+                    <th><input class="js-filter form-control" type="text" value="" /></th>
+                    <th><input class="js-filter form-control" type="text" value="" /></th>
+                </tr>
+                </thead>
+                <tbody style="background-color:white;">
+                <tr th:each="weatherDetail : ${weatherDetails}">
+                    <td class="text-right" th:text="${{weatherDetail.id}}"> </td>
+                    <td class="text-right"
+                        th:text="${#dates.format(weatherDetail.date, 'yyyy-MM-dd')}"> </td>
+                    <td class="text-right" th:text="${weatherDetail.stationName}"> </td>
+                    <td class="text-right" th:text="${weatherDetail.province}"> </td>
+                    <td class="text-right"
+                        th:text="${#numbers.formatDecimal(weatherDetail.meanTemp, 0, 'COMMA', 1, 'POINT')}"> </td>
+                    <td class="text-right"
+                        th:text="${#numbers.formatDecimal(weatherDetail.highestMonthlyTemp, 0, 'COMMA', 1, 'POINT')}"> </td>
+                    <td class="text-right"
+                        th:text="${#numbers.formatDecimal(weatherDetail.lowestMonthlyTemp, 0, 'COMMA', 1, 'POINT')}"> </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <div>
+                    <a
+                            th:href="@{/weather}"
+                            class="btn btn-primary"
+                            th:text="${'Admin'}"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://www.jqueryscript.net/demo/jQuery-Plugin-For-Multi-column-Table-Sorting-Filtering-Dynamitable/dynamitable.jquery.min.js"></script>
+</body>
+</html>
