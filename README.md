@@ -1,6 +1,6 @@
-Weather Application
+#Weather Application
 
-Getting Started
+#Getting Started
 
 From the project root directory:
 
